@@ -1,0 +1,13 @@
+services:
+  mysql:
+    image: 'mysql:latest'
+    environment:
+      - 'MYSQL_DATABASE=tdx_online_store'
+      - 'MYSQL_PASSWORD=tdx_online_store_password'
+      - 'MYSQL_ROOT_PASSWORD=tdx_root_password'
+      - 'MYSQL_USER=tdx_online_store_user'
+    ports:
+      - '33306:3306'
+    volumes:
+      - './database/mysql-data:/var/lib/mysql'
+      - './database/online_store.sql:/docker-entrypoint-initdb.d/init.sql'

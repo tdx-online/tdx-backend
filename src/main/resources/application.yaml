@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: tdx-backend
+
+  datasource:
+    url: jdbc:mysql://localhost:33306/tdx_online_store?serverTimezone=UTC
+    username: tdx_online_store_user
+    password: tdx_online_store_password
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      maximum-pool-size: 5
+      minimum-idle: 1
+      idle-timeout: 10000
+      pool-name: HikariCP
+      max-lifetime: 1800000
+      connection-timeout: 30000
+      connection-test-query: SELECT 1
+      validation-timeout: 5000
+
+server:
+  port: 46320
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+
