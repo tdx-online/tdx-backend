@@ -32,4 +32,4 @@ build/
 ### VS Code ###
 .vscode/
 
-database/mysql-data
+/database/mysql-data/
