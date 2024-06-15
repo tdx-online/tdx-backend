@@ -12,35 +12,31 @@ import edu.hit.tdxbackend.mapper.UploadMapper;
 import org.springframework.stereotype.Component;
 
 import java.io.InputStream;
-import java.util.Objects;
 
 @Component
-public class UploadMapperImpl implements UploadMapper {
+public class AliUploadMapperImpl implements UploadMapper {
     private final String endpoint = "oss-cn-beijing.aliyuncs.com";
     // 使用环境变量中获取的RAM用户的访问密钥配置访问凭证。
     private final EnvironmentVariableCredentialsProvider credentialsProvider =
             CredentialsProviderFactory.newEnvironmentVariableCredentialsProvider();
     private final OSS ossClient = new OSSClientBuilder().build(endpoint, credentialsProvider);
 
-    public UploadMapperImpl() throws com.aliyuncs.exceptions.ClientException {
+    public AliUploadMapperImpl() throws com.aliyuncs.exceptions.ClientException {
     }
 
     @Override
     public String uploadImage(String imageName, InputStream input, String type) {
 //        System.out.println("uploadImage------" + type);
         try {
-            if (Objects.equals(type, "type_single")) {
-                imageName = "productSingle/" + imageName;
-            } else if (Objects.equals(type, "type_detail")) {
-                imageName = "productDetail/" + imageName;
-            } else if (Objects.equals(type, "category")) {
-                imageName = "category/" + imageName;
-            } else if (Objects.equals(type, "type_single_middle")) {
-                imageName = "productSingleMiddle/" + imageName;
-            } else if (Objects.equals(type, "type_single_small")) {
-                imageName = "productSingleSmall/" + imageName;
-            } else {
-                return null;
+            switch (type) {
+                case "type_single" -> imageName = "productSingle/" + imageName;
+                case "type_detail" -> imageName = "productDetail/" + imageName;
+                case "category" -> imageName = "category/" + imageName;
+                case "type_single_middle" -> imageName = "productSingleMiddle/" + imageName;
+                case "type_single_small" -> imageName = "productSingleSmall/" + imageName;
+                case null, default -> {
+                    return null;
+                }
             }
             // 创建PutObjectRequest对象。
             String bucketName = "online-store-wenruyv";
