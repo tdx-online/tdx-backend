@@ -4,12 +4,12 @@ import edu.hit.tdxbackend.entity.ResultInfo;
 import edu.hit.tdxbackend.entity.User;
 import edu.hit.tdxbackend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 
 import java.io.IOException;
 
+@CrossOrigin
 @RequestMapping("/user")
 @RestController
 @SessionAttributes("user")
@@ -22,12 +22,12 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResultInfo login(@RequestBody User user, Model model){
+    public ResultInfo login(@RequestBody User user) {  //, Model model
         User existUser = userService.login(user.getUsername(), user.getPassword());
         ResultInfo info = new ResultInfo();
         if (null != existUser) {
-            model.addAttribute("user", existUser);
-            System.out.println("写入existUser" + existUser);
+//            model.addAttribute("user", existUser);
+//            System.out.println("写入existUser" + existUser);
             info.setFlag(true);
         } else {
             info.setFlag(false);

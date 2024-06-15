@@ -22,7 +22,7 @@ import java.util.UUID;
 public class UploadServiceImpl implements UploadService {
     private final ProductMapper productMapper;
     private final CategoryMapper categoryMapper;
-    @Qualifier("uploadMapperImpl")
+//    @Qualifier("aliUploadMapperImpl")
     private final UploadMapper uploadMapper;
     
     @Autowired
@@ -61,7 +61,7 @@ public class UploadServiceImpl implements UploadService {
                 return productMapper.addImageByProductId(id, type, url, middle, small);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+//            e.printStackTrace();
             return false;
         }
     }

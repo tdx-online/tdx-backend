@@ -4,7 +4,7 @@ import org.springframework.stereotype.Repository;
 
 import java.io.InputStream;
 
-@Repository
+//@Repository
 public interface UploadMapper {
     /**
      * 上传图片
