@@ -8,18 +8,18 @@ import java.util.List;
 
 @Mapper
 public interface CategoryMapper {
-
     /**
      * 添加商品种类
+     *
      * @param category 商品种类实例
-     * @return 影响的行数
      */
     @Insert("insert into category(name) values(#{name})")
     @Options(useGeneratedKeys = true, keyProperty = "id", keyColumn = "id")
-    int addCategory(Category category);
+    void addCategory(Category category);
 
     /**
      * 根据ID获取分类信息
+     *
      * @param id 分类ID
      * @return 分类信息
      */
@@ -28,6 +28,7 @@ public interface CategoryMapper {
 
     /**
      * 根据ID删除分类
+     *
      * @param id 分类ID
      * @return 删除成功返回true，否则返回false
      */
@@ -36,6 +37,7 @@ public interface CategoryMapper {
 
     /**
      * 获取所有分类信息
+     *
      * @return 所有分类信息列表
      */
     @Select("select * from category")
@@ -43,6 +45,7 @@ public interface CategoryMapper {
 
     /**
      * 删除分类
+     *
      * @param id 分类ID
      * @return 删除成功返回true，否则返回false
      */
@@ -51,6 +54,7 @@ public interface CategoryMapper {
 
     /**
      * 根据分类ID获取商品列表
+     *
      * @param cid 分类ID
      * @return 商品列表
      */
@@ -59,7 +63,8 @@ public interface CategoryMapper {
 
     /**
      * 根据分类ID添加图片URL
-     * @param id 分类ID
+     *
+     * @param id  分类ID
      * @param url 图片URL
      * @return 添加成功返回true，否则返回false
      */

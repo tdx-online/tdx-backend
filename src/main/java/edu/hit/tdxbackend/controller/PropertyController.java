@@ -18,6 +18,12 @@ public class PropertyController {
         this.propertyService = propertyService;
     }
 
+    /**
+     * 添加属性
+     *
+     * @param property 属性
+     * @return 添加结果
+     */
     @PostMapping("/add")
     public ResultInfo addProperty(@RequestBody Property property) {
         ResultInfo info = new ResultInfo();
@@ -37,6 +43,12 @@ public class PropertyController {
         return info;
     }
 
+    /**
+     * 删除属性
+     *
+     * @param property 属性
+     * @return 删除结果
+     */
     @PostMapping("/change")
     public ResultInfo changeProperty(@RequestBody ProductProperties property) {
         ResultInfo info = new ResultInfo();
@@ -56,6 +68,12 @@ public class PropertyController {
         return info;
     }
 
+    /**
+     * 添加商品属性
+     *
+     * @param property 商品属性
+     * @return 添加结果
+     */
     @PostMapping("/addProductProperty")
     public ResultInfo addProductProperty(@RequestBody ProductProperties property) {
         ResultInfo info = new ResultInfo();

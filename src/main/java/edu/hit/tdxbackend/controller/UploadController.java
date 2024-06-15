@@ -21,6 +21,15 @@ public class UploadController {
         this.uploadService = uploadService;
     }
 
+    /**
+     * 上传商品图片
+     *
+     * @param filename 文件名
+     * @param file     文件
+     * @param type     类型
+     * @param pid      商品id
+     * @return 上传结果
+     */
     @PostMapping("/product")
     @ResponseBody
     public ResultInfo product(@RequestParam("filename") String filename,
@@ -43,6 +52,14 @@ public class UploadController {
         return info;
     }
 
+    /**
+     * 上传商品分类图片
+     *
+     * @param filename 文件名
+     * @param file     文件
+     * @param id       商品分类id
+     * @return 上传结果
+     */
     @PostMapping("/category")
     @ResponseBody
     public ResultInfo category(@RequestParam("filename") String filename,

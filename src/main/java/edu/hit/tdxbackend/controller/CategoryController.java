@@ -16,6 +16,12 @@ public class CategoryController {
         this.categoryService = categoryService;
     }
 
+    /**
+     * 根据商品分类ID删除分类
+     *
+     * @param categoryId 商品分类ID
+     * @return 删除结果
+     */
     @DeleteMapping("/{categoryId}")
     public ResultInfo delete(@PathVariable("categoryId") Integer categoryId) {
         ResultInfo info = new ResultInfo();
@@ -33,6 +39,11 @@ public class CategoryController {
         return info;
     }
 
+    /**
+     * 获取首页分类
+     *
+     * @return 首页分类
+     */
     @GetMapping("/homePageCategory")
     public ResultInfo homePageCategory() {
         ResultInfo info = new ResultInfo();
@@ -46,6 +57,11 @@ public class CategoryController {
         return info;
     }
 
+    /**
+     * 获取所有分类
+     *
+     * @return 分类
+     */
     @GetMapping("/listAllCategories")
     public ResultInfo listAllCategories() {
         ResultInfo info = new ResultInfo();
@@ -59,6 +75,12 @@ public class CategoryController {
         return info;
     }
 
+    /**
+     * 添加新的商品分类
+     *
+     * @param categoryName 商品分类名称
+     * @return 添加结果
+     */
     @PostMapping("/add")
     public ResultInfo add(String categoryName) {
         ResultInfo info = new ResultInfo();
@@ -78,6 +100,12 @@ public class CategoryController {
         return info;
     }
 
+    /**
+     * 根据分类ID获取商品内容
+     *
+     * @param cid 分类ID
+     * @return 商品内容
+     */
     @GetMapping("/searchCategoryProperty/{cid}")
     public ResultInfo searchCategoryProperty(@PathVariable("cid") Integer cid) {
         ResultInfo info = new ResultInfo();

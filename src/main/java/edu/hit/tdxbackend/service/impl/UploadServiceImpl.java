@@ -6,7 +6,6 @@ import edu.hit.tdxbackend.mapper.UploadMapper;
 import edu.hit.tdxbackend.service.UploadService;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import javax.imageio.ImageIO;
@@ -22,9 +21,9 @@ import java.util.UUID;
 public class UploadServiceImpl implements UploadService {
     private final ProductMapper productMapper;
     private final CategoryMapper categoryMapper;
-//    @Qualifier("aliUploadMapperImpl")
+    //    @Qualifier("aliUploadMapperImpl")
     private final UploadMapper uploadMapper;
-    
+
     @Autowired
     public UploadServiceImpl(ProductMapper productMapper, CategoryMapper categoryMapper, UploadMapper uploadMapper) {
         this.productMapper = productMapper;

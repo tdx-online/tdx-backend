@@ -17,7 +17,7 @@ import java.util.Map;
 public class CategoryServiceImpl implements CategoryService {
     private final CategoryMapper categoryMapper;
     private final ProductMapper productMapper;
-    
+
     @Autowired
     public CategoryServiceImpl(CategoryMapper categoryMapper, ProductMapper productMapper) {
         this.categoryMapper = categoryMapper;
@@ -41,7 +41,6 @@ public class CategoryServiceImpl implements CategoryService {
         return categoryAndProduct;
     }
 
-
     @Override
     public Object listAllCategories() {
         return categoryMapper.listAllCategories();
@@ -63,5 +62,6 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public Object cidCategoryProperty(int i) {
         System.out.println(i);
-        return categoryMapper.getPropertyByCid(i);}
+        return categoryMapper.getPropertyByCid(i);
+    }
 }

@@ -9,15 +9,15 @@ public interface OrderService {
     /**
      * 获取所有订单数据
      *
-     * @return
+     * @return 所有订单数据
      */
     List<Order> getAllOrders(String address) throws IOException;
 
     /**
      * 获取某个用户的所有订单
      *
-     * @param userId
-     * @return
+     * @param userId 用户id
+     * @return 某个用户的所有订单
      */
     List<Order> getOrdersByUserId(String addr, Integer userId) throws IOException;
 
@@ -29,10 +29,21 @@ public interface OrderService {
     /**
      * 删除某个订单
      *
-     * @param oid
-     * @return
+     * @param addr      地址
+     * @param userId    用户id
+     * @param orderCode 订单号
+     * @return 是否删除成功
+     * @throws IOException IO异常
      */
     boolean deleteOrder(String addr, Integer userId, String orderCode) throws IOException;
 
+    /**
+     * 创建订单
+     *
+     * @param addr  地址
+     * @param order 订单
+     * @return 是否创建成功
+     * @throws IOException IO异常
+     */
     boolean createOrder(String addr, Order order) throws IOException;
 }
