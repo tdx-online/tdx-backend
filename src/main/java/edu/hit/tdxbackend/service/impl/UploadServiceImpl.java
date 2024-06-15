@@ -22,7 +22,7 @@ import java.util.UUID;
 public class UploadServiceImpl implements UploadService {
     private final ProductMapper productMapper;
     private final CategoryMapper categoryMapper;
-    @Qualifier("aliUploadMapperImpl")
+//    @Qualifier("aliUploadMapperImpl")
     private final UploadMapper uploadMapper;
     
     @Autowired
