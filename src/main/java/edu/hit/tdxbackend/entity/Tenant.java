@@ -7,11 +7,10 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class User {
-    private int id;
+public class Tenant {
+    private Integer id;
     private String username;
     private String password;
     private String email;
-    private String address;
-//    private String blockAddress;
+    private Integer status; // 0: 审核中 1: 审核通过 2: 审核未通过
 }

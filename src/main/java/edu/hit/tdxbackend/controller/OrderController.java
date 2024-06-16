@@ -43,8 +43,7 @@ public class OrderController {
             info.setErrorMsg("用户未登录");
             return info;
         }
-        String address = user.getBlockAddress();
-        List<Order> orders = orderService.getAllOrders(address);
+        List<Order> orders = orderService.getAllOrders(user.getAddress());
         if (orders == null) {
             info.setFlag(false);
             info.setErrorMsg("获取订单失败");
@@ -71,8 +70,7 @@ public class OrderController {
             info.setErrorMsg("用户未登录或用户ID无效");
             return info;
         }
-        String addr = user.getBlockAddress();
-        List<Order> orders = orderService.getOrdersByUserId(addr, userId);
+        List<Order> orders = orderService.getOrdersByUserId(user.getAddress(), userId);
         if (orders == null) {
             info.setFlag(false);
             info.setErrorMsg("获取订单失败");
@@ -106,8 +104,7 @@ public class OrderController {
             info.setErrorMsg("用户未登录");
             return info;
         }
-        String addr = user.getBlockAddress();
-        boolean flag = orderService.updateStatus(addr, userId, orderCode, status);
+        boolean flag = orderService.updateStatus(user.getAddress(), userId, orderCode, status);
         if (flag) {
             info.setFlag(true);
         } else {
@@ -134,8 +131,7 @@ public class OrderController {
             info.setErrorMsg("用户未登录");
             return info;
         }
-        String addr = user.getBlockAddress();
-        boolean flag = orderService.deleteOrder(addr, userId, orderCode);
+        boolean flag = orderService.deleteOrder(user.getAddress(), userId, orderCode);
         if (flag) {
             info.setFlag(true);
         } else {
@@ -168,8 +164,7 @@ public class OrderController {
         order.setOrderCode(orderCode);
         order.setCreateDate(createDate);
         order.setStatus(status);
-        String addr = user.getBlockAddress();
-        boolean flag = orderService.createOrder(addr, order);
+        boolean flag = orderService.createOrder(user.getAddress(), order);
         if (flag) {
             info.setFlag(true);
         } else {
