@@ -11,6 +11,7 @@ import java.util.List;
 public interface ProductMapper {
     /**
      * 根据商品类型id获取商品
+     *
      * @param categoryId 商品类型id
      * @return 商品列表
      */
@@ -19,6 +20,7 @@ public interface ProductMapper {
 
     /**
      * 新增商品
+     *
      * @param product 商品对象
      * @return 是否添加成功
      */
@@ -29,6 +31,7 @@ public interface ProductMapper {
 
     /**
      * 根据商品id获取商品图片
+     *
      * @param productId 商品id
      * @return 图片对象
      */
@@ -37,6 +40,7 @@ public interface ProductMapper {
 
     /**
      * 根据商品id获取商品图片列表
+     *
      * @param productId 商品id
      * @return 图片列表
      */
@@ -45,6 +49,7 @@ public interface ProductMapper {
 
     /**
      * 根据商品id删除商品
+     *
      * @param id 商品id
      * @return 是否删除成功
      */
@@ -53,6 +58,7 @@ public interface ProductMapper {
 
     /**
      * 根据商品id获取商品详细信息
+     *
      * @param id 商品id
      * @return 商品详细信息对象
      */
@@ -61,6 +67,7 @@ public interface ProductMapper {
 
     /**
      * 根据商品名称模糊查询商品信息
+     *
      * @param name 商品名称
      * @return 商品列表
      */
@@ -69,6 +76,7 @@ public interface ProductMapper {
 
     /**
      * 根据商品id获取商品信息
+     *
      * @param id 商品id
      * @return 商品对象
      */
@@ -77,6 +85,7 @@ public interface ProductMapper {
 
     /**
      * 根据商品id获取一个商品图片
+     *
      * @param productId 商品id
      * @return 图片对象
      */
@@ -85,6 +94,7 @@ public interface ProductMapper {
 
     /**
      * 根据商品id修改商品信息
+     *
      * @param product 商品对象
      * @return 是否修改成功
      */
@@ -94,11 +104,12 @@ public interface ProductMapper {
 
     /**
      * 根据商品id给商品添加图片
+     *
      * @param productId 商品id
-     * @param type 图片类型
-     * @param url 图片url
-     * @param middle 图片middle
-     * @param small 图片small
+     * @param type      图片类型
+     * @param url       图片url
+     * @param middle    图片middle
+     * @param small     图片small
      * @return 是否添加成功
      */
     @Insert("insert into product_image(pid, type, url_path, single_middle, single_small) " +

@@ -17,6 +17,12 @@ public class CommentController {
         this.commentService = commentService;
     }
 
+    /**
+     * 添加评论
+     *
+     * @param comment 评论
+     * @return 添加结果
+     */
     @PostMapping("/add")
     public ResultInfo addComment(@RequestBody Comment comment) {
         ResultInfo info = new ResultInfo();

@@ -7,8 +7,6 @@ import edu.hit.tdxbackend.mapper.ProductMapper;
 import edu.hit.tdxbackend.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.bind.annotation.SessionAttributes;
-import org.springframework.web.bind.annotation.SessionAttribute;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -30,6 +28,13 @@ public class OrderController {
         this.productMapper = productMapper;
     }
 
+    /**
+     * 获取用户所有订单
+     *
+     * @param user 用户
+     * @return 订单列表
+     * @throws IOException IO异常
+     */
     @GetMapping("/getAllOrders")
     public ResultInfo getAllOrders(@SessionAttribute(name = "user", required = false) User user) throws IOException {
         ResultInfo info = new ResultInfo();
@@ -50,6 +55,14 @@ public class OrderController {
         return info;
     }
 
+    /**
+     * 根据用户ID获取订单
+     *
+     * @param user   用户
+     * @param userId 用户ID
+     * @return 订单列表
+     * @throws IOException IO异常
+     */
     @GetMapping("/getOrdersByUserId")
     public ResultInfo getOrdersByUserId(@SessionAttribute(name = "user", required = false) User user, @RequestParam("uid") Integer userId) throws IOException {
         ResultInfo info = new ResultInfo();
@@ -75,6 +88,16 @@ public class OrderController {
         return info;
     }
 
+    /**
+     * 更新订单状态
+     *
+     * @param user      用户
+     * @param orderCode 订单号
+     * @param userId    用户ID
+     * @param status    状态
+     * @return 更新结果
+     * @throws IOException IO异常
+     */
     @PostMapping("/updateStatus")
     public ResultInfo updateStatus(@SessionAttribute(name = "user", required = false) User user, @RequestParam("id") String orderCode, @RequestParam("uid") Integer userId, @RequestParam("status") int status) throws IOException {
         ResultInfo info = new ResultInfo();
@@ -94,6 +117,15 @@ public class OrderController {
         return info;
     }
 
+    /**
+     * 删除订单
+     *
+     * @param user      用户
+     * @param userId    用户ID
+     * @param orderCode 订单号
+     * @return 删除结果
+     * @throws IOException IO异常
+     */
     @PostMapping("/deleteOrder")
     public ResultInfo deleteOrder(@SessionAttribute(name = "user", required = false) User user, @RequestBody Integer userId, @RequestBody String orderCode) throws IOException {
         ResultInfo info = new ResultInfo();
@@ -113,6 +145,14 @@ public class OrderController {
         return info;
     }
 
+    /**
+     * 创建订单
+     *
+     * @param user  用户
+     * @param order 订单
+     * @return 创建结果
+     * @throws IOException IO异常
+     */
     @PostMapping("/createOrder")
     public ResultInfo createOrder(@SessionAttribute(name = "user", required = false) User user, @RequestBody Order order) throws IOException {
         ResultInfo info = new ResultInfo();
@@ -139,6 +179,11 @@ public class OrderController {
         return info;
     }
 
+    /**
+     * 生成订单号
+     *
+     * @return 订单号
+     */
     private static String generateOrderCode() {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyyMMddHHmmssSSS");
         String datePrefix = dtf.format(LocalDateTime.now());
