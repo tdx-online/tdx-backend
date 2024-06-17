@@ -58,6 +58,8 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<ProductDetails> search(String name) {
+        if (name.equals("NULL"))
+            name = "";
         List<ProductDetails> products = productMapper.queryByName(name);
         if (products == null) {
             return null;
