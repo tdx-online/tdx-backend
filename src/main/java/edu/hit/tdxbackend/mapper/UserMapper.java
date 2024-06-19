@@ -1,10 +1,7 @@
 package edu.hit.tdxbackend.mapper;
 
 import edu.hit.tdxbackend.entity.User;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -21,7 +18,7 @@ public interface UserMapper {
     User getUserById(int id);
 
     @Select("select * from user where username = #{username} and password=#{password}")
-    User getUserByUsernameAndPassword(String username, String password);
+    User getUserByUsernameAndPassword(@Param("username") String username, @Param("password") String password);
 
     @Delete("delete from user where id = #{id}")
     int deleteUserById(int id);

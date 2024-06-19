@@ -17,7 +17,7 @@ import java.util.Random;
 @CrossOrigin
 @RestController
 @RequestMapping("/order")
-@SessionAttributes("user")
+//@SessionAttributes("user")
 public class OrderController {
     private final OrderService orderService;
     private final ProductMapper productMapper;
@@ -33,10 +33,10 @@ public class OrderController {
      *
      * @param user 用户
      * @return 订单列表
-     * @throws IOException IO异常
      */
     @GetMapping("/getAllOrders")
-    public ResultInfo getAllOrders(@SessionAttribute(name = "user", required = false) User user) throws IOException {
+//    public ResultInfo getAllOrders(@SessionAttribute(name = "user", required = false) User user) throws IOException {
+    public ResultInfo getAllOrders(User user) {
         ResultInfo info = new ResultInfo();
         if (user == null) {
             info.setFlag(false);

@@ -11,7 +11,7 @@ public interface OrderService {
      *
      * @return 所有订单数据
      */
-    List<Order> getAllOrders(String address) throws IOException;
+    List<Order> getAllOrders(String address);
 
     /**
      * 获取某个用户的所有订单
