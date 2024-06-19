@@ -1,6 +1,7 @@
 package edu.hit.tdxbackend.service;
 
 import edu.hit.tdxbackend.entity.Order;
+import edu.hit.tdxbackend.entity.OrderItem;
 
 import java.io.IOException;
 import java.util.List;
@@ -11,7 +12,7 @@ public interface OrderService {
      *
      * @return 所有订单数据
      */
-    List<Order> getAllOrders(String address);
+    List<Order> getAllOrders();
 
     /**
      * 获取某个用户的所有订单
@@ -19,31 +20,30 @@ public interface OrderService {
      * @param userId 用户id
      * @return 某个用户的所有订单
      */
-    List<Order> getOrdersByUserId(String addr, Integer userId) throws IOException;
+    List<Order> getOrdersByUserId(Integer userId) throws IOException;
 
     /**
      * 更新某个订单的状态（待付款、待发货、待收货、待评价）
      */
-    boolean updateStatus(String addr, Integer userId, String orderCode, Integer status) throws IOException;
+    boolean updateStatus(Integer oid, int status) throws IOException;
 
     /**
      * 删除某个订单
      *
-     * @param addr      地址
-     * @param userId    用户id
-     * @param orderCode 订单号
+     * @param oid 订单id
      * @return 是否删除成功
      * @throws IOException IO异常
      */
-    boolean deleteOrder(String addr, Integer userId, String orderCode) throws IOException;
+    boolean deleteOrder(Integer oid) throws IOException;
 
     /**
      * 创建订单
      *
-     * @param addr  地址
      * @param order 订单
      * @return 是否创建成功
      * @throws IOException IO异常
      */
-    boolean createOrder(String addr, Order order) throws IOException;
+    boolean createOrder(Order order) throws IOException;
+
+    List<OrderItem> getOrderItemsByOrderId(Integer orderId) throws IOException;
 }

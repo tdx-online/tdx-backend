@@ -43,8 +43,7 @@ public class OrderController {
             info.setErrorMsg("用户未登录");
             return info;
         }
-        String address = user.getBlockAddress();
-        List<Order> orders = orderService.getAllOrders(address);
+        List<Order> orders = orderService.getAllOrders();
         if (orders == null) {
             info.setFlag(false);
             info.setErrorMsg("获取订单失败");
@@ -71,19 +70,16 @@ public class OrderController {
             info.setErrorMsg("用户未登录或用户ID无效");
             return info;
         }
-        String addr = user.getBlockAddress();
-        List<Order> orders = orderService.getOrdersByUserId(addr, userId);
-        if (orders == null) {
+        List<Order> orders = orderService.getOrdersByUserId(userId);
+        if (null == orders) {
             info.setFlag(false);
             info.setErrorMsg("获取订单失败");
         } else {
             info.setFlag(true);
-            info.setData(orders);
-        }
-        if (orders != null) {
-            for (Order order : orders) {
-                order.setProductImage(productMapper.getOneImageByProductId(order.getPid()));
+            for(Order order : orders){
+                order.setOrderItems(orderService.getOrderItemsByOrderId(order.getId()));
             }
+            info.setData(orders);
         }
         return info;
     }
@@ -91,23 +87,21 @@ public class OrderController {
     /**
      * 更新订单状态
      *
-     * @param user      用户
-     * @param orderCode 订单号
-     * @param userId    用户ID
-     * @param status    状态
+     * @param user   用户
+     * @param oid    订单ID
+     * @param status 订单状态
      * @return 更新结果
      * @throws IOException IO异常
      */
     @PostMapping("/updateStatus")
-    public ResultInfo updateStatus(@SessionAttribute(name = "user", required = false) User user, @RequestParam("id") String orderCode, @RequestParam("uid") Integer userId, @RequestParam("status") int status) throws IOException {
+    public ResultInfo updateStatus(@SessionAttribute(name = "user", required = false) User user, @RequestParam("id") int oid,  @RequestParam("status") int status) throws IOException {
         ResultInfo info = new ResultInfo();
         if (user == null) {
             info.setFlag(false);
             info.setErrorMsg("用户未登录");
             return info;
         }
-        String addr = user.getBlockAddress();
-        boolean flag = orderService.updateStatus(addr, userId, orderCode, status);
+        boolean flag = orderService.updateStatus(oid, status);
         if (flag) {
             info.setFlag(true);
         } else {
@@ -120,22 +114,20 @@ public class OrderController {
     /**
      * 删除订单
      *
-     * @param user      用户
-     * @param userId    用户ID
-     * @param orderCode 订单号
+     * @param user 用户
+     * @param oid  订单ID
      * @return 删除结果
      * @throws IOException IO异常
      */
     @PostMapping("/deleteOrder")
-    public ResultInfo deleteOrder(@SessionAttribute(name = "user", required = false) User user, @RequestBody Integer userId, @RequestBody String orderCode) throws IOException {
+    public ResultInfo deleteOrder(@SessionAttribute(name = "user", required = false) User user, @RequestBody Integer oid) throws IOException {
         ResultInfo info = new ResultInfo();
         if (user == null) {
             info.setFlag(false);
             info.setErrorMsg("用户未登录");
             return info;
         }
-        String addr = user.getBlockAddress();
-        boolean flag = orderService.deleteOrder(addr, userId, orderCode);
+        boolean flag = orderService.deleteOrder(oid);
         if (flag) {
             info.setFlag(true);
         } else {
@@ -168,8 +160,8 @@ public class OrderController {
         order.setOrderCode(orderCode);
         order.setCreateDate(createDate);
         order.setStatus(status);
-        String addr = user.getBlockAddress();
-        boolean flag = orderService.createOrder(addr, order);
+
+        boolean flag = orderService.createOrder(order);
         if (flag) {
             info.setFlag(true);
         } else {
