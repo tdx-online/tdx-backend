@@ -65,7 +65,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public Object cidCategoryProperty(int i) {
-        System.out.println(i);
+//        System.out.println(i);
         return categoryMapper.getPropertyByCid(i);
     }
 }

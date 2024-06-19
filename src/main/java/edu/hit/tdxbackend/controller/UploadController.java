@@ -35,7 +35,7 @@ public class UploadController {
                               @RequestParam("file") MultipartFile file,
                               @RequestParam("type") String type,
                               @RequestParam("pid") int pid) {
-        System.out.println("product");
+//        System.out.println("product");
         ResultInfo info = new ResultInfo();
         try {
             InputStream inputStream = file.getInputStream();
@@ -64,7 +64,7 @@ public class UploadController {
     public ResultInfo category(@RequestParam("filename") String filename,
                                @RequestParam("file") MultipartFile file,
                                @RequestParam("id") int id) {
-        System.out.println("category");
+//        System.out.println("category");
         ResultInfo info = new ResultInfo();
         try {
             InputStream inputStream = file.getInputStream();

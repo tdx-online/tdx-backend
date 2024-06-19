@@ -32,14 +32,14 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public boolean addProduct(Product product) {
-        System.out.println("ProductServiceImpl--addProduct");
+//        System.out.println("ProductServiceImpl--addProduct");
         product.setCreateDate(new Timestamp(System.currentTimeMillis()));
         return productMapper.addProduct(product);
     }
 
     @Override
     public boolean delete(int id) {
-        System.out.println("ProductServiceImpl--delete");
+//        System.out.println("ProductServiceImpl--delete");
         return productMapper.delete(id);
     }
 
@@ -74,7 +74,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public boolean changeProduct(Product product) {
-        System.out.println("changeProduct");
+//        System.out.println("changeProduct");
         product.setCreateDate(new Timestamp(System.currentTimeMillis()));
         return productMapper.updateProduct(product);
     }
