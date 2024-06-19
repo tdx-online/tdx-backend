@@ -71,8 +71,9 @@ public interface ProductMapper {
      * @param name 商品名称
      * @return 商品列表
      */
-    @Select("select * from product where name like '%' || #{name} || '%'")
-    List<ProductDetails> queryByName(String name);
+    @Select("SELECT * FROM product WHERE name LIKE CONCAT('%', #{name}, '%')")
+    List<ProductDetails> queryByName(@Param("name") String name);
+
 
     /**
      * 根据商品id获取商品信息

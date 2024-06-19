@@ -3,6 +3,7 @@ package edu.hit.tdxbackend.controller;
 import edu.hit.tdxbackend.entity.ResultInfo;
 import edu.hit.tdxbackend.entity.User;
 import edu.hit.tdxbackend.service.UserService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
@@ -25,14 +26,16 @@ public class UserController {
      * @return 登录结果
      */
     @PostMapping("/login")
-    public ResultInfo login(@RequestBody User user) {
+    public ResultInfo login(@RequestBody User user, HttpSession session) {
         // TODO 需要维护登录状态
 //        System.out.println("user: " + user.getUsername() + " " + user.getPassword());
         User existUser = userService.login(user.getUsername(), user.getPassword());
         ResultInfo info = new ResultInfo();
         if (null != existUser) {
 //            System.out.println("写入existUser" + existUser);
+            session.setAttribute("user", existUser);
             info.setFlag(true);
+            info.setData(existUser);
         } else {
             info.setFlag(false);
             info.setErrorMsg("用户名或密码错误");
@@ -85,13 +88,15 @@ public class UserController {
      * @return 登出结果
      */
     @GetMapping("/logout")
-    public ResultInfo logout(SessionStatus sessionStatus) {
+    public ResultInfo logout(HttpSession session, SessionStatus sessionStatus) {
         ResultInfo info = new ResultInfo();
         try {
+            session.invalidate();
             sessionStatus.setComplete();
             info.setFlag(true);
         } catch (Exception e) {
             info.setFlag(false);
+            info.setErrorMsg("登出失败");
         }
         return info;
     }
