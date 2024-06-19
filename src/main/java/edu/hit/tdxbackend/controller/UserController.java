@@ -3,10 +3,12 @@ package edu.hit.tdxbackend.controller;
 import edu.hit.tdxbackend.entity.ResultInfo;
 import edu.hit.tdxbackend.entity.User;
 import edu.hit.tdxbackend.service.UserService;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
+import shade.kotlin.Pair;
 
 @CrossOrigin
 @RequestMapping("/user")
@@ -15,7 +17,7 @@ public class UserController {
     private final UserService userService;
 
     @Autowired
-    public UserController(UserService userService) {
+    public UserController(UserService userService, HttpServletResponse httpServletResponse) {
         this.userService = userService;
     }
 
@@ -26,16 +28,13 @@ public class UserController {
      * @return 登录结果
      */
     @PostMapping("/login")
-    public ResultInfo login(@RequestBody User user, HttpSession session) {
-        // TODO 需要维护登录状态
-//        System.out.println("user: " + user.getUsername() + " " + user.getPassword());
-        User existUser = userService.login(user.getUsername(), user.getPassword());
+    public ResultInfo login(@RequestBody User user, HttpServletResponse response) {
+        Pair<User, String> existUser = userService.login(user.getUsername(), user.getPassword());
         ResultInfo info = new ResultInfo();
-        if (null != existUser) {
-//            System.out.println("写入existUser" + existUser);
-            session.setAttribute("user", existUser);
+        if (null != existUser.component1()) {
             info.setFlag(true);
-            info.setData(existUser);
+            info.setData(existUser.component1());
+            response.setHeader("Authorization", "Bearer " + existUser.component2());
         } else {
             info.setFlag(false);
             info.setErrorMsg("用户名或密码错误");
@@ -63,13 +62,13 @@ public class UserController {
     }
 
     /**
-     * 获取在线用户
+     * 根据token获取在线用户
      *
-     * @param user 用户
      * @return 在线用户
      */
     @GetMapping("/getUser")
-    public ResultInfo getUser(@SessionAttribute(name = "user", required = false) User user) {
+    public ResultInfo getUser(@RequestHeader(value = "Authorization", required = false) String token) {
+        User user = userService.getUserByToken(token);
         ResultInfo info = new ResultInfo();
         if (user != null) {
             info.setFlag(true);
@@ -84,17 +83,14 @@ public class UserController {
     /**
      * 用户登出
      *
-     * @param sessionStatus 会话状态
      * @return 登出结果
      */
     @GetMapping("/logout")
-    public ResultInfo logout(HttpSession session, SessionStatus sessionStatus) {
+    public ResultInfo logout(@RequestHeader("Authorization") String token) {
         ResultInfo info = new ResultInfo();
-        try {
-            session.invalidate();
-            sessionStatus.setComplete();
+        if (userService.logout(token)) {
             info.setFlag(true);
-        } catch (Exception e) {
+        } else {
             info.setFlag(false);
             info.setErrorMsg("登出失败");
         }
