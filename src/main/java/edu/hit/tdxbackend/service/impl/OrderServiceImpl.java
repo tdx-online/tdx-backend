@@ -1,6 +1,7 @@
 package edu.hit.tdxbackend.service.impl;
 
 import edu.hit.tdxbackend.entity.Order;
+import edu.hit.tdxbackend.mapper.OrderMapper;
 import edu.hit.tdxbackend.mapper.UserMapper;
 import edu.hit.tdxbackend.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,9 +12,12 @@ import java.util.List;
 
 @Service
 public class OrderServiceImpl implements OrderService {
-    // TODO need to finish
+    private final OrderMapper orderMapper;
+
     @Autowired
-    private UserMapper userMapper;
+    public OrderServiceImpl(OrderMapper orderMapper) {
+        this.orderMapper = orderMapper;
+    }
 
     @Override
     public List<Order> getAllOrders(String address) {

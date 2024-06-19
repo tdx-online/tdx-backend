@@ -19,7 +19,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User login(String username, String password) {
-        System.out.println(username + " " + password);
+//        System.out.println(username + " " + password);
         return userDAO.getUserByUsernameAndPassword(username, password);
     }
 

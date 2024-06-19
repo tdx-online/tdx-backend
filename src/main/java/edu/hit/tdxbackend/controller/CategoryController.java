@@ -96,7 +96,7 @@ public class CategoryController {
                 info.setErrorMsg((Integer) info.getData() == 0 ? "该分类已存在" : "添加商品分类失败");
             }
         }
-        System.out.println(info.getData());
+//        System.out.println(info.getData());
         return info;
     }
 
