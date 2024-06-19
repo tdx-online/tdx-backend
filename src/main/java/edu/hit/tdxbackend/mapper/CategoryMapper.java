@@ -24,11 +24,6 @@ public interface CategoryMapper {
      * @return 分类信息
      */
     @Select("select * from category where id = #{id}")
-//    @Results({
-//            @Result(property = "id", column = "id"),
-//            @Result(property = "name", column = "name"),
-//            @Result(property = "urlPath", column = "url_path")
-//    })
     Category getCategoryById(@Param("id") int id);
 
     /**
@@ -46,11 +41,6 @@ public interface CategoryMapper {
      * @return 所有分类信息列表
      */
     @Select("select * from category")
-//    @Results({
-//            @Result(property = "id", column = "id"),
-//            @Result(property = "name", column = "name"),
-//            @Result(property = "urlPath", column = "url_path")
-//    })
     List<Category> listAllCategories();
 
     /**
@@ -69,11 +59,6 @@ public interface CategoryMapper {
      * @return 商品列表
      */
     @Select("select * from product where cid  = #{cid}")
-//    @Results({
-//            @Result(property = "id", column = "id"),
-//            @Result(property = "name", column = "name"),
-//            @Result(property = "urlPath", column = "url_path")
-//    })
     List<Product> getPropertyByCid(@Param("cid") int cid);
 
     /**

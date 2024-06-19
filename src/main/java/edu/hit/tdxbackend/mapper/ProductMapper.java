@@ -16,16 +16,6 @@ public interface ProductMapper {
      * @return 商品列表
      */
     @Select("select * from product where cid = #{categoryId} limit 30")
-//    @Results({
-//            @Result(property = "id", column = "id"),
-//            @Result(property = "name", column = "name"),
-//            @Result(property = "subTitle", column = "sub_title"),
-//            @Result(property = "originalPrice", column = "original_price"),
-//            @Result(property = "promotePrice", column = "promote_price"),
-//            @Result(property = "stock", column = "stock"),
-//            @Result(property = "cid", column = "cid"),
-//            @Result(property = "createDate", column = "create_date")
-//    })
     List<ProductDetails> homePageGetProductsByCategoryId(int categoryId);
 
     /**
@@ -73,16 +63,6 @@ public interface ProductMapper {
      * @return 商品详细信息对象
      */
     @Select("select * from product where id = #{id}")
-//    @Results({
-//            @Result(property = "id", column = "id"),
-//            @Result(property = "name", column = "name"),
-//            @Result(property = "subTitle", column = "sub_title"),
-//            @Result(property = "originalPrice", column = "original_price"),
-//            @Result(property = "promotePrice", column = "promote_price"),
-//            @Result(property = "stock", column = "stock"),
-//            @Result(property = "cid", column = "cid"),
-//            @Result(property = "createDate", column = "create_date")
-//    })
     ProductDetails queryForDetailsById(int id);
 
     /**
@@ -92,16 +72,6 @@ public interface ProductMapper {
      * @return 商品列表
      */
     @Select("select * from product where name like '%' || #{name} || '%'")
-//    @Results({
-//            @Result(property = "id", column = "id"),
-//            @Result(property = "name", column = "name"),
-//            @Result(property = "subTitle", column = "sub_title"),
-//            @Result(property = "originalPrice", column = "original_price"),
-//            @Result(property = "promotePrice", column = "promote_price"),
-//            @Result(property = "stock", column = "stock"),
-//            @Result(property = "cid", column = "cid"),
-//            @Result(property = "createDate", column = "create_date")
-//    })
     List<ProductDetails> queryByName(String name);
 
     /**
@@ -111,16 +81,6 @@ public interface ProductMapper {
      * @return 商品对象
      */
     @Select("select * from product where id = #{id}")
-//    @Results({
-//            @Result(property = "id", column = "id"),
-//            @Result(property = "name", column = "name"),
-//            @Result(property = "subTitle", column = "sub_title"),
-//            @Result(property = "originalPrice", column = "original_price"),
-//            @Result(property = "promotePrice", column = "promote_price"),
-//            @Result(property = "stock", column = "stock"),
-//            @Result(property = "cid", column = "cid"),
-//            @Result(property = "createDate", column = "create_date")
-//    })
     Product queryById(int id);
 
     /**

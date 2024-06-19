@@ -7,8 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -18,7 +16,7 @@ public class OrderServiceImpl implements OrderService {
     private UserMapper userMapper;
 
     @Override
-    public List<Order> getAllOrders(String address) throws IOException {
+    public List<Order> getAllOrders(String address) {
         return List.of();
     }
 

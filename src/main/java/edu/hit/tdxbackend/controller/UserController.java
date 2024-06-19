@@ -4,14 +4,12 @@ import edu.hit.tdxbackend.entity.ResultInfo;
 import edu.hit.tdxbackend.entity.User;
 import edu.hit.tdxbackend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 
 @CrossOrigin
 @RequestMapping("/user")
 @RestController
-@SessionAttributes("user")
 public class UserController {
     private final UserService userService;
 
@@ -23,16 +21,16 @@ public class UserController {
     /**
      * 用户登录
      *
-     * @param user  用户
-     * @param model 模型
+     * @param user 用户
      * @return 登录结果
      */
     @PostMapping("/login")
-    public ResultInfo login(@RequestBody User user, Model model) {
+    public ResultInfo login(@RequestBody User user) {
+        // TODO 需要维护登录状态
+//        System.out.println("user: " + user.getUsername() + " " + user.getPassword());
         User existUser = userService.login(user.getUsername(), user.getPassword());
         ResultInfo info = new ResultInfo();
         if (null != existUser) {
-            model.addAttribute("user", existUser);
 //            System.out.println("写入existUser" + existUser);
             info.setFlag(true);
         } else {
