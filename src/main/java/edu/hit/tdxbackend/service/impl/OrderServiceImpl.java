@@ -45,7 +45,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public boolean updateStatus(Integer oid, int status) throws IOException {
-        return orderMapper.updateStatus(oid, status);
+        return orderMapper.updateStatus(oid, status + 1);
     }
 
     @Override

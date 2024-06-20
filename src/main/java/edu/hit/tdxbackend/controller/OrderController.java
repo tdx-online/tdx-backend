@@ -63,9 +63,16 @@ public class OrderController {
      * @throws IOException IO异常
      */
     @GetMapping("/getOrdersByUserId")
-    public ResultInfo getOrdersByUserId(@SessionAttribute(name = "user", required = false) User user, @RequestParam("uid") Integer userId) throws IOException {
+//    public ResultInfo getOrdersByUserId(@SessionAttribute(name = "user", required = false) User user, @RequestParam("uid") Integer userId) throws IOException {
+    public ResultInfo getOrdersByUserId(User user, @RequestParam("uid") Integer userId) throws IOException {
         ResultInfo info = new ResultInfo();
-        if (user == null || userId == null) {
+
+//        if (user == null || userId == null) {
+//            info.setFlag(false);
+//            info.setErrorMsg("用户未登录或用户ID无效");
+//            return info;
+//        }
+        if (userId == null) {
             info.setFlag(false);
             info.setErrorMsg("用户未登录或用户ID无效");
             return info;
@@ -76,7 +83,7 @@ public class OrderController {
             info.setErrorMsg("获取订单失败");
         } else {
             info.setFlag(true);
-            for(Order order : orders){
+            for (Order order : orders) {
                 order.setOrderItems(orderService.getOrderItemsByOrderId(order.getId()));
             }
             info.setData(orders);
@@ -87,21 +94,21 @@ public class OrderController {
     /**
      * 更新订单状态
      *
-     * @param user   用户
-     * @param oid    订单ID
-     * @param status 订单状态
+     * @param user  用户
+     * @param order 订单
      * @return 更新结果
      * @throws IOException IO异常
      */
     @PostMapping("/updateStatus")
-    public ResultInfo updateStatus(@SessionAttribute(name = "user", required = false) User user, @RequestParam("id") int oid,  @RequestParam("status") int status) throws IOException {
+    public ResultInfo updateStatus(@SessionAttribute(name = "user", required = false) User user, @RequestBody Order order) throws IOException {
+//        System.out.println("oid: " + order.getId() + ", status: " + order.getStatus());
         ResultInfo info = new ResultInfo();
-        if (user == null) {
-            info.setFlag(false);
-            info.setErrorMsg("用户未登录");
-            return info;
-        }
-        boolean flag = orderService.updateStatus(oid, status);
+//        if (user == null) {
+//            info.setFlag(false);
+//            info.setErrorMsg("用户未登录");
+//            return info;
+//        }
+        boolean flag = orderService.updateStatus(order.getId(), order.getStatus());
         if (flag) {
             info.setFlag(true);
         } else {
