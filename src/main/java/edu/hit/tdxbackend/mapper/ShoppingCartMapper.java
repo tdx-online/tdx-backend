@@ -16,7 +16,7 @@ public interface ShoppingCartMapper {
     /**
      * 添加商品到购物车
      */
-    @Insert("INSERT INTO shopping_cart(pid, count, uid, status) VALUES(#{shoppingCart.getPid()}, #{shoppingCart.getCount()}, #{shoppingCart.getUid()}, #{shoppingCart.getStatus()})")
+    @Insert("INSERT INTO shopping_cart(pid, count, uid, status) VALUES(#{pid}, #{count}, #{uid}, #{status})")
     Boolean addGoods(ShoppingCart shoppingCart);
 
     /**
