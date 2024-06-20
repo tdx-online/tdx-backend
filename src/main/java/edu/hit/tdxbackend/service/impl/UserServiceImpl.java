@@ -31,7 +31,7 @@ public class UserServiceImpl implements UserService {
         if (user != null) {
             token = JWTUtil.generateToken(username, String.valueOf(user.getId()));
             user.setToken(token);
-            redisTemplate.opsForValue().set(username, user, 5, TimeUnit.MINUTES);
+            redisTemplate.opsForValue().set(username, user, 1, TimeUnit.HOURS);
         }
 
         return new Pair<>(user, token);

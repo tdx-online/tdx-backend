@@ -32,6 +32,7 @@ public class SecurityConfig {
                         .requestMatchers("user/login").permitAll()
                         .requestMatchers("product/details/{id}").permitAll()
                         .requestMatchers("product/list").permitAll()
+                        .requestMatchers("product/search/{keyword}").permitAll()
                         .requestMatchers("category/homePageCategory").permitAll()
                         .requestMatchers("category/listAllCategories").permitAll()
                         .requestMatchers("category/searchCategoryProperty/{cid}").permitAll()

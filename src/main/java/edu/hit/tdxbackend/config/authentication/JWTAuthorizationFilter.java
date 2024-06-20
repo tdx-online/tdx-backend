@@ -1,5 +1,6 @@
 package edu.hit.tdxbackend.config.authentication;
 
+import edu.hit.tdxbackend.entity.User;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -53,9 +54,12 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 
         if (JWTUtil.validateToken(token)) {
             try {
-                if (redisTemplate.opsForValue().get(username) != null) {
-                    UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(username, null, new ArrayList<>());
-                    SecurityContextHolder.getContext().setAuthentication(authentication);
+                User user = (User) redisTemplate.opsForValue().get(username);
+                if (user != null) {
+                    if (token.equals(user.getToken())) {
+                        UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(username, null, new ArrayList<>());
+                        SecurityContextHolder.getContext().setAuthentication(authentication);
+                    }
                 }
             } catch (Exception e) {
                 return;

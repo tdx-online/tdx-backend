@@ -18,7 +18,6 @@ import java.util.Random;
 @CrossOrigin
 @RestController
 @RequestMapping("/order")
-//@SessionAttributes("user")
 public class OrderController {
     private final OrderService orderService;
     private final UserService userService;
