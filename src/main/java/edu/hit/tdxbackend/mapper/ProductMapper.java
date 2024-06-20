@@ -36,7 +36,7 @@ public interface ProductMapper {
      * @return 图片对象
      */
     @Select("select * from product_image where pid = #{productId} and type = 'type_single' limit 1")
-    ProductImage getOneImageByProductId(int productId);
+    ProductImage getOneImageByProductId(Integer productId);
 
     /**
      * 根据商品id获取商品图片列表
@@ -45,7 +45,7 @@ public interface ProductMapper {
      * @return 图片列表
      */
     @Select("select * from product_image where pid = #{productId}")
-    List<ProductImage> getImagesByProductId(int productId);
+    List<ProductImage> getImagesByProductId(Integer productId);
 
     /**
      * 根据商品id删除商品
@@ -54,7 +54,7 @@ public interface ProductMapper {
      * @return 是否删除成功
      */
     @Delete("delete from product where id = #{id}")
-    boolean delete(int id);
+    boolean delete(Integer id);
 
     /**
      * 根据商品id获取商品详细信息
@@ -63,7 +63,7 @@ public interface ProductMapper {
      * @return 商品详细信息对象
      */
     @Select("select * from product where id = #{id}")
-    ProductDetails queryForDetailsById(int id);
+    ProductDetails queryForDetailsById(Integer id);
 
     /**
      * 根据商品名称模糊查询商品信息
@@ -82,7 +82,7 @@ public interface ProductMapper {
      * @return 商品对象
      */
     @Select("select * from product where id = #{id}")
-    Product queryById(int id);
+    Product queryById(Integer id);
 
     /**
      * 根据商品id获取一个商品图片
@@ -91,7 +91,7 @@ public interface ProductMapper {
      * @return 图片对象
      */
     @Select("select * from product_image where pid = #{productId} and type = 'type_single' limit 1")
-    ProductImage getImageByProductId(int productId);
+    ProductImage getImageByProductId(Integer productId);
 
     /**
      * 根据商品id修改商品信息
