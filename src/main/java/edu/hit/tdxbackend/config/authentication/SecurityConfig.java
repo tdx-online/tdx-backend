@@ -30,12 +30,11 @@ public class SecurityConfig {
                 .authorizeRequests(authorize -> authorize  // 开始权限配置
                         .requestMatchers("user/register").permitAll()
                         .requestMatchers("user/login").permitAll()
-                        .requestMatchers("user/getUser").permitAll()
-                        .requestMatchers("/product/details/{id}").permitAll()
-                        .requestMatchers("/product/list").permitAll()
-                        .requestMatchers("/category/homePageCategory").permitAll()
-                        .requestMatchers("/category/listAllCategories").permitAll()
-                        .requestMatchers("/category/searchCategoryProperty/{cid}").permitAll()
+                        .requestMatchers("product/details/{id}").permitAll()
+                        .requestMatchers("product/list").permitAll()
+                        .requestMatchers("category/homePageCategory").permitAll()
+                        .requestMatchers("category/listAllCategories").permitAll()
+                        .requestMatchers("category/searchCategoryProperty/{cid}").permitAll()
                         .anyRequest().authenticated())  // 其他请求都需要认证
 //                .addFilter(new JWTAuthenticationFilter(authenticationManager(http.getSharedObject(AuthenticationConfiguration.class)), redisTemplate))
                 .addFilter(new JWTAuthorizationFilter(authenticationManager(http.getSharedObject(AuthenticationConfiguration.class)), redisTemplate));

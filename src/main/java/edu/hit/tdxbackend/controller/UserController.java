@@ -4,10 +4,8 @@ import edu.hit.tdxbackend.entity.ResultInfo;
 import edu.hit.tdxbackend.entity.User;
 import edu.hit.tdxbackend.service.UserService;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.bind.support.SessionStatus;
 import shade.kotlin.Pair;
 
 @CrossOrigin
@@ -17,7 +15,7 @@ public class UserController {
     private final UserService userService;
 
     @Autowired
-    public UserController(UserService userService, HttpServletResponse httpServletResponse) {
+    public UserController(UserService userService) {
         this.userService = userService;
     }
 
@@ -35,6 +33,7 @@ public class UserController {
             info.setFlag(true);
             info.setData(existUser.component1());
             response.setHeader("Authorization", "Bearer " + existUser.component2());
+            response.setHeader("Access-Control-Expose-Headers", "Authorization");
         } else {
             info.setFlag(false);
             info.setErrorMsg("用户名或密码错误");
@@ -68,10 +67,10 @@ public class UserController {
      */
     @GetMapping("/getUser")
     public ResultInfo getUser(@RequestHeader(value = "Authorization", required = false) String token) {
-        User user = userService.getUserByToken(token);
+        User user = token != null ? userService.getUserByToken(token) : null;
         ResultInfo info = new ResultInfo();
-        if (user != null) {
-            info.setFlag(true);
+        if (token != null) {
+            info.setFlag(user != null);
             info.setData(user);
         } else {
             info.setFlag(false);

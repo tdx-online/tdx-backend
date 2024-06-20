@@ -42,7 +42,11 @@ public class JWTUtil {
      * @return username
      */
     public static String getUsernameFromToken(String token) {
-        return Jwts.parser().verifyWith(keyPair.getPublic()).build().parseSignedClaims(token).getPayload().getSubject();
+        try {
+            return Jwts.parser().verifyWith(keyPair.getPublic()).build().parseSignedClaims(token).getPayload().getSubject();
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     /**
@@ -51,7 +55,11 @@ public class JWTUtil {
      * @return user type
      */
     public static String getUserTypeFromToken(String token) {
-        return Jwts.parser().verifyWith(keyPair.getPublic()).build().parseSignedClaims(token).getPayload().get("usertype", String.class);
+        try {
+            return Jwts.parser().verifyWith(keyPair.getPublic()).build().parseSignedClaims(token).getPayload().get("usertype", String.class);
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     /**

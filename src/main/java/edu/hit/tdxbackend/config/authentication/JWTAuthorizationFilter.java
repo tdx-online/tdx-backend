@@ -1,6 +1,5 @@
 package edu.hit.tdxbackend.config.authentication;
 
-import edu.hit.tdxbackend.entity.User;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -34,7 +33,24 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
         String token = header.replace("Bearer ", "");
         String username = JWTUtil.getUsernameFromToken(token);
 
-        if (username != null && JWTUtil.validateToken(token)) {
+        if (username == null) {
+            String requestURI = request.getRequestURI();
+            if (requestURI.contains("user/register") ||
+                    requestURI.contains("user/login") ||
+                    requestURI.contains("product/details/{id}") ||
+                    requestURI.contains("product/list") ||
+                    requestURI.contains("category/homePageCategory") ||
+                    requestURI.contains("category/listAllCategories") ||
+                    requestURI.contains("category/searchCategoryProperty/{cid}")) {
+                chain.doFilter(request, response);
+                return;
+            }
+//            System.out.println(requestURI);
+            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+            return;
+        }
+
+        if (JWTUtil.validateToken(token)) {
             try {
                 if (redisTemplate.opsForValue().get(token) != null) {
                     UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(username, null, new ArrayList<>());
