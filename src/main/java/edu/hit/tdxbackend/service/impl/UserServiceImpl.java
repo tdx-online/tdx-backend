@@ -63,7 +63,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Boolean logout(String token) {
-        return redisTemplate.delete(token);
+        token = token.replace("Bearer ", "");
+        String username = JWTUtil.getUsernameFromToken(token);
+        if (username == null)
+            return false;
+        return redisTemplate.delete(username);
     }
 
 }
