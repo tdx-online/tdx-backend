@@ -3,7 +3,6 @@ package edu.hit.tdxbackend.controller;
 import edu.hit.tdxbackend.entity.Order;
 import edu.hit.tdxbackend.entity.ResultInfo;
 import edu.hit.tdxbackend.entity.User;
-import edu.hit.tdxbackend.mapper.ProductMapper;
 import edu.hit.tdxbackend.service.OrderService;
 import edu.hit.tdxbackend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,17 +17,14 @@ import java.util.Random;
 @CrossOrigin
 @RestController
 @RequestMapping("/order")
-//@SessionAttributes("user")
 public class OrderController {
     private final OrderService orderService;
     private final UserService userService;
-    private final ProductMapper productMapper;
 
     @Autowired
-    public OrderController(OrderService orderService, UserService userService, ProductMapper productMapper) {
+    public OrderController(OrderService orderService, UserService userService) {
         this.orderService = orderService;
         this.userService = userService;
-        this.productMapper = productMapper;
     }
 
     @GetMapping("/getAllOrders")
