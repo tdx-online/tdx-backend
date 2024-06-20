@@ -54,6 +54,7 @@ public class ShoppingCartController {
             resultInfo.setFlag(addFlag);
             resultInfo.setErrorMsg(addFlag ? null : "fail to insert!!!(db)");
         } catch (Exception e) {
+            e.printStackTrace();
             resultInfo.setFlag(false);
             resultInfo.setErrorMsg("fail to add goods!");
         }
@@ -65,8 +66,8 @@ public class ShoppingCartController {
      * @param id 商品id
      * @return 是否删除成功
      */
-    @DeleteMapping("/deleteGoods")
-    public ResultInfo deleteGoods(@RequestParam("id") int id) {
+    @PostMapping("/deleteGoods")
+    public ResultInfo deleteGoods(@RequestParam("id") Integer id) {
         ResultInfo info = new ResultInfo();
         try {
             boolean delStatus = shoppingCartService.deleteGoods(id);

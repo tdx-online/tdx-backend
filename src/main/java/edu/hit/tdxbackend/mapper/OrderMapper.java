@@ -70,10 +70,10 @@ public interface OrderMapper {
      * @return
      */
     @Insert("INSERT INTO tdx_online.`order` (order_code, receiver_tel, user_message, create_date, uid, status) " +
-            "VALUES (#{order.orderCode}, #{order.receiverTel}, #{order.userMessage}, #{order.createDate}, " +
-            "#{order.uid}, #{order.status})")
-    @Options(useGeneratedKeys = true, keyProperty = "order.id")
-    boolean createOrder(@Param("order") Order order);
+            "VALUES (#{orderCode}, #{receiverTel}, #{userMessage}, #{createDate}, " +
+            "#{uid}, #{status})")
+    @Options(useGeneratedKeys = true, keyProperty = "id")
+    boolean createOrder(Order order);
 
     /**
      * 创建订单商品
