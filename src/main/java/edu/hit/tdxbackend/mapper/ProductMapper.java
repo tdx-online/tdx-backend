@@ -118,4 +118,21 @@ public interface ProductMapper {
     boolean addImageByProductId(@Param("productId") int productId, @Param("type") String type,
                                 @Param("url") String url, @Param("middle") String middle,
                                 @Param("small") String small);
+
+    /**
+     * 根据商品id获取商品数量
+     * @param id
+     * @return
+     */
+    @Select("select stock from product where id = #{id}")
+    Integer getStockById(Integer id);
+
+    /**
+     * 根据商品id修改商品数量
+     * @param id
+     * @param stock
+     * @return
+     */
+    @Update("update product set stock = #{stock} where id = #{id}")
+    boolean updateStockById(Integer id, Integer stock);
 }
