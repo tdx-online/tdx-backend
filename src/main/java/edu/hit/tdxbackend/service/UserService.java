@@ -1,6 +1,8 @@
 package edu.hit.tdxbackend.service;
 
 import edu.hit.tdxbackend.entity.User;
+import jakarta.servlet.http.HttpServletResponse;
+import shade.kotlin.Pair;
 
 import java.util.List;
 
@@ -10,9 +12,9 @@ public interface UserService {
      *
      * @param username 用户名
      * @param password 密码
-     * @return 用户信息
+     * @return 用户信息和token
      */
-    User login(String username, String password);
+    Pair<User, String> login(String username, String password);
 
     /**
      * 注册
@@ -36,4 +38,20 @@ public interface UserService {
      * @return 是否删除成功
      */
     boolean deleteUser(int id);
+
+    /**
+     * 根据token获取用户
+     *
+     * @param token token
+     * @return 用户
+     */
+    User getUserByToken(String token);
+
+    /**
+     * 退出登录
+     *
+     * @param token token
+     * @return 是否退出成功
+     */
+    Boolean logout(String token);
 }
