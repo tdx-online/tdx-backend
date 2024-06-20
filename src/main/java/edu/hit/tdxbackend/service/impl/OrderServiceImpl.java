@@ -10,7 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -55,11 +58,33 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public boolean createOrder(Order order) throws IOException {
+        Map<Integer, Integer> stockMap = new HashMap<>();
+        for(OrderItem orderItem : order.getOrderItems()) {
+            Integer pid = orderItem.getPid();
+            Integer count = orderItem.getCount();
+            Integer stock = productMapper.getStockById(pid);
+            if(stock < count) {
+                return false;
+            }
+            stockMap.put(pid, stock);
+        }
         boolean flag = orderMapper.createOrder(order);
         if(!flag) {
             return false;
         }else{
-            return orderMapper.createOrderItems(order.getId(), order.getOrderItems());
+            boolean flag2 = orderMapper.createOrderItems(order.getId(), order.getOrderItems());
+            if(!flag2) {
+                return false;
+            }else{
+                try {
+                    for(OrderItem orderItem : order.getOrderItems()) {
+                        productMapper.updateStockById(orderItem.getPid(), stockMap.get(orderItem.getPid()) - orderItem.getCount());
+                    }
+                    return true;
+                } catch (Exception e) {
+                    return false;
+                }
+            }
         }
     }
 

@@ -43,6 +43,6 @@ public interface ShoppingCartMapper {
     /**
      * 检查商品是否被加入到购物车中
      */
-    @Select("SELECT id FROM shopping_cart WHERE uid = #{pid} AND pid = #{uid} AND status = 1")
+    @Select("SELECT id FROM shopping_cart WHERE uid = #{uid} AND pid = #{pid} AND status = 1")
     Integer getCartStatus(int pid, int uid);
 }

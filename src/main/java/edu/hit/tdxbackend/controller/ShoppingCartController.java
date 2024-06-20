@@ -105,7 +105,7 @@ public class ShoppingCartController {
      * @param count 商品数量
      * @return 是否修改成功
      */
-    @PutMapping("/alterGoodsNumber")
+    @PostMapping("/alterGoodsNumber")
     public ResultInfo alterGoodsNumber(@RequestParam("id") int shoppingCartId, @RequestParam("count") int count) {
         ResultInfo info = new ResultInfo();
         try {
@@ -147,13 +147,12 @@ public class ShoppingCartController {
      * @return 是否存在
      */
     @GetMapping("/checkCartStatus")
-    public ResultInfo checkCartStatus(@RequestParam("uid") int uid, @RequestParam("pid") int pid) {
+    public ResultInfo checkCartStatus(@RequestParam("uid") Integer uid, @RequestParam("pid") Integer pid) {
         ResultInfo info = new ResultInfo();
         try {
             boolean cartFlag = shoppingCartService.checkCartStatus(pid, uid);
             info.setFlag(true);
             info.setData(cartFlag);
-            info.setErrorMsg(cartFlag ? null : "fail to check!!!(db)");
         } catch (Exception e) {
             e.printStackTrace();
             info.setFlag(false);
